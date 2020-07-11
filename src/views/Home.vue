@@ -1,12 +1,16 @@
 <template>
   <div class="home">
-    <h1>{{ msg }}</h1>
-    <div>
-      <SemiCircleProgressBar />
-    </div>
-    <div>
-      <BarChart />
-    </div>
+    <SemiCircleProgressBar />
+    <SemiCircleProgressBar />
+    <div class="break"></div>
+    <SemiCircleProgressBar />
+    <SemiCircleProgressBar />
+    <div class="break"></div>
+    <BarChart />
+    <BarChart />
+    <div class="break"></div>
+    <BarChart />
+    <BarChart />
   </div>
 </template>
 
@@ -32,3 +36,16 @@ export default class Home extends Vue {
   }
 }
 </script>
+
+<style scoped>
+.home {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.break {
+  flex-basis: 100%;
+  height: 0;
+}
+</style>

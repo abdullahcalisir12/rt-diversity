@@ -3,17 +3,17 @@
     <svg viewBox="0 0 36 36">
       <g>
         <path
-          d="M3,18 a15.9155,15.9155 0 0,1 31.831,0"
+          d="M2,18 a15.9155,15.9155 0 0,1 31.831,0"
           fill="none"
-          stroke-width="3"
+          stroke-width="2"
           stroke="#efefef"
           stroke-linecap="round"
         />
         <path
           class="circle"
-          d="M3,18 a15.9155,15.9155 0 0,1 31.831,0"
+          d="M2,18 a15.9155,15.9155 0 0,1 31.831,0"
           fill="none"
-          stroke-width="3"
+          stroke-width="2"
           stroke="orange"
           stroke-linecap="round"
           stroke-dasharray="25, 100"
