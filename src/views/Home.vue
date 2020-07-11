@@ -4,6 +4,9 @@
     <div>
       <SemiCircleProgressBar />
     </div>
+    <div>
+      <BarChart />
+    </div>
   </div>
 </template>
 
@@ -12,10 +15,12 @@ import { Vue, Component } from "vue-property-decorator";
 import Api from "@/airtable-api";
 
 import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
+import BarChart from "@/components/BarChart.vue";
 
 @Component({
   components: {
-    SemiCircleProgressBar
+    SemiCircleProgressBar,
+    BarChart
   }
 })
 export default class Home extends Vue {
