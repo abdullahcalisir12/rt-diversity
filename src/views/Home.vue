@@ -1,16 +1,29 @@
 <template>
   <div class="home">
-    <SemiCircleProgressBar />
-    <SemiCircleProgressBar />
-    <div class="break"></div>
-    <SemiCircleProgressBar />
-    <SemiCircleProgressBar />
-    <div class="break"></div>
-    <BarChart />
-    <BarChart />
-    <div class="break"></div>
-    <BarChart />
-    <BarChart />
+    <Card>
+      <SemiCircleProgressBar />
+    </Card>
+    <Card>
+      <SemiCircleProgressBar />
+    </Card>
+    <Card>
+      <SemiCircleProgressBar />
+    </Card>
+    <Card>
+      <SemiCircleProgressBar />
+    </Card>
+    <Card>
+      <BarChart />
+    </Card>
+    <Card>
+      <BarChart />
+    </Card>
+    <Card>
+      <BarChart />
+    </Card>
+    <Card>
+      <BarChart />
+    </Card>
   </div>
 </template>
 
@@ -20,11 +33,13 @@ import Api from "@/airtable-api";
 
 import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
 import BarChart from "@/components/BarChart.vue";
+import Card from "@/components/Card.vue";
 
 @Component({
   components: {
     SemiCircleProgressBar,
-    BarChart
+    BarChart,
+    Card
   }
 })
 export default class Home extends Vue {
@@ -37,11 +52,12 @@ export default class Home extends Vue {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .home {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-gap: 4rem;
+  grid-template-columns: 1fr 1fr;
+  padding: 4rem;
 }
 
 .break {
