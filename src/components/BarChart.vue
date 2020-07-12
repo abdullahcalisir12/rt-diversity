@@ -6,7 +6,7 @@
         :key="index"
         x="0"
         :y="index * barHeight + index * gap"
-        :width="total > 0 ? values[index] * 100 / total : 0"
+        :width="total > 0 ? (values[index] * 100) / total : 0"
         :height="barHeight"
         :fill="colors[index]"
       ></rect>
@@ -22,7 +22,6 @@ export default class BarChart extends Vue {
   @Prop({ required: true }) readonly values!: Array<number>;
   @Prop({ required: true }) readonly colors!: Array<string>;
 
-
   private chartHeight = 300;
   private gap = 10;
 
@@ -30,7 +29,7 @@ export default class BarChart extends Vue {
     (this.chartHeight - this.values.length * this.gap) / this.values.length;
 
   get total(): number {
-    return this.values && this.values.reduce((acc, cur) => acc = acc + cur);
+    return this.values && this.values.reduce((acc, cur) => (acc = acc + cur));
   }
 }
 </script>

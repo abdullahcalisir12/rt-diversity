@@ -32,7 +32,9 @@ export default class SemiRadialChart extends Vue {
   @Prop({ required: true }) readonly value!: number;
 
   get strokeDashArray(): string {
-    return `${this.value && this.total ? this.value * 50 / this.total : 0}, 100`
+    return `${
+      this.value && this.total ? (this.value * 50) / this.total : 0
+    }, 100`;
   }
 }
 </script>
