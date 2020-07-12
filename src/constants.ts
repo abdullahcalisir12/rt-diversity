@@ -21,7 +21,7 @@ export const genders = [
   }
 ];
 
-export const ethnicity = [
+export const ethnicitys = [
   {
     label: 'White',
     color: 'blue',
