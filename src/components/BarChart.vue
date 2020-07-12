@@ -57,7 +57,7 @@ export default class BarChart extends Vue {
 
   .chart-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 
     padding: 0rem 4rem 2rem;
 

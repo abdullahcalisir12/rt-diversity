@@ -12,7 +12,7 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   background: white;
   box-shadow: 0px 0px 8px 8px lightgray;

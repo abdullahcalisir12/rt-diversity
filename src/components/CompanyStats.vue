@@ -55,6 +55,41 @@
           :colors="ageCategories.map(ageC => ageC.color)"
         />
       </Card>
+      <Card title="Company Culture / Team Values">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['team-values']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Daily Routines">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['daily-routines']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Personal Health">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['personal-health']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Engineering">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['engineering']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Career Growth">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['career-growth']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Strategy">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['strategy']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
+      <Card title="Company Culture / Company Properties">
+        <div class="culture">
+          <h3 v-for="(value, key) in companyInfo['company-properties']" :key="key">{{value}}</h3>
+        </div>
+      </Card>
     </template>
   </div>
 </template>
@@ -161,6 +196,16 @@ export default class CompanyStats extends Vue {
 
   @media only screen and (max-width: 992px) {
     grid-template-columns: 1fr;
+  }
+
+  .culture {
+    padding: 0 2rem 2rem;
+    h3 {
+      padding: 1rem;
+      background: lightcoral;
+      border-radius: 12px;
+      color: white;
+    }
   }
 }
 </style>
