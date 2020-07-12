@@ -87,7 +87,7 @@ export const age = [
   }
 ];
 
-export const location = [
+export const locations = [
   {
     label: 'North America',
     color: 'blue',
@@ -119,7 +119,7 @@ export const location = [
     count: 0
   },
   {
-    label: 'Central or South America',
+    label: 'Africa',
     color: 'orange',
     count: 0
   }

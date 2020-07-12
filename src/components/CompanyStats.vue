@@ -29,9 +29,9 @@
       </Card>
       <Card>
         <BarChart
-          :labels="genders.map(gen => gen.label)"
-          :values="genders.map(gen => gen.count)"
-          :colors="genders.map(gen => gen.color)" />
+          :labels="locations.map(loc => loc.label)"
+          :values="locations.map(loc => loc.count)"
+          :colors="locations.map(loc => loc.color)" />
       </Card>
       <Card>
         <BarChart
@@ -46,7 +46,7 @@
 <script lang="ts">
 import { Vue, Component, Watch, Prop } from "vue-property-decorator";
 import Api from "@/airtable-api";
-import { genders, ethnicitys } from "@/constants.ts"
+import { genders, ethnicitys, locations } from "@/constants.ts"
 import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
 import BarChart from "@/components/BarChart.vue";
 import Card from "@/components/Card.vue";
@@ -64,6 +64,7 @@ export default class CompanyStats extends Vue {
   private employees: Array<any | never> = [];
   private genders = [...genders];
   private ethnicitys = [...ethnicitys];
+  private locations = [...locations];
 
   @Prop({ required: true }) readonly company!: string;
 
@@ -85,6 +86,7 @@ export default class CompanyStats extends Vue {
       this.employees.forEach(emp => {
         this.genders[this.genders.findIndex(gender => gender.label === emp.gender)].count += 1;
         this.ethnicitys[this.ethnicitys.findIndex(ethnicity => ethnicity.label === emp.ethnicity)].count += 1;
+        this.locations[this.locations.findIndex(location => location.label === emp.location)].count += 1;
       })
     }
   }
