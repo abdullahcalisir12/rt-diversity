@@ -49,41 +49,55 @@ export const ethnicitys = [
   }
 ];
 
-export const age = [
+export const ageCategories = [
   {
     label: '[0,18]',
     color: 'yellow',
-    count: 0
+    count: 0,
+    min: 0,
+    max: 18
   },
   {
     label: '(18,25]',
     color: 'blue',
-    count: 0
+    count: 0,
+    min: 18,
+    max: 25
   },
   {
     label: '(25,35]',
     color: 'pink',
-    count: 0
+    count: 0,
+    min: 25,
+    max: 35
   },
   {
     label: '(35,45]',
     color: 'purple',
-    count: 0
+    count: 0,
+    min: 35,
+    max: 45
   },
   {
     label: '(45,55]',
     color: 'yellow',
-    count: 0
+    count: 0,
+    min: 45,
+    max: 55
   },
   {
     label: '(55,65]',
     color: 'black',
-    count: 0
+    count: 0,
+    min: 55,
+    max: 65
   },
   {
     label: '(65,Inf]',
     color: 'gray',
-    count: 0
+    count: 0,
+    min: 65,
+    max: Infinity
   }
 ];
 
