@@ -4,6 +4,7 @@
       v-model="selectedCompany"
       class="select-box"
       :options="companies"
+      placeholder="Please select Company"
     ></SelectBox>
     <CompanyStats v-if="selectedCompany" :company="selectedCompany" />
   </div>

@@ -51,7 +51,7 @@ export default class SemiRadialChart extends Vue {
 }
 </script>
 
-<style>
+<style scoped>
 .single-chart {
   width: 100%;
   max-width: 400px;

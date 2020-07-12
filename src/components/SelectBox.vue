@@ -1,7 +1,7 @@
 <template>
   <div class="select-box">
     <select v-model="selectedOption" @change="onValueChange">
-      <option value="" disabled>Please Select One</option>
+      <option value="" disabled>{{ placeholder }}</option>
       <option
         v-for="option in options"
         :key="option.value"
@@ -17,6 +17,8 @@ import { Vue, Component, Prop, Model, Emit } from "vue-property-decorator";
 @Component
 export default class SelectBox extends Vue {
   @Prop({ required: true }) readonly options!: Array<object>;
+  @Prop({ default: 'Please Select One' }) readonly placeholder!: string;
+
   @Model("change", { type: String }) readonly value!: string;
 
   private selectedOption = this.value;
