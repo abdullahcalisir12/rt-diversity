@@ -17,6 +17,10 @@ class AirtableAPI {
   ) {
     return await this.base(tableName).select(options);
   }
+
+  async find(tableName: string, id: string) {
+    return await this.base(tableName).find(id);
+  }
 }
 
 const api = new AirtableAPI();
