@@ -1,16 +1,16 @@
 <template>
   <div class="company-stats">
     <Card>
-      <SemiCircleProgressBar />
+      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['LGBTGIA']" />
     </Card>
     <Card>
-      <SemiCircleProgressBar />
+      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['has-a-disability']" />
     </Card>
     <Card>
-      <SemiCircleProgressBar />
+      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['non-native-english-speaker']" />
     </Card>
     <Card>
-      <SemiCircleProgressBar />
+      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['served-in-military']" />
     </Card>
     <Card>
       <BarChart />
@@ -28,7 +28,8 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Watch, Prop } from "vue-property-decorator";
+import Api from "@/airtable-api";
 
 import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
 import BarChart from "@/components/BarChart.vue";
@@ -42,7 +43,15 @@ import Card from "@/components/Card.vue";
   }
 })
 export default class CompanyStats extends Vue {
+  public companyInfo: Airtable.Record<{}> | null = null;
+  @Prop({ required: true }) readonly company!: string;
 
+  @Watch('company', { immediate: true })
+  onSelectedCompanyChanged(value: string) {
+    Api.find("Companies", value).then((result: Airtable.Record<{}> | any) => {
+      this.companyInfo = result.fields;
+    });
+  }
 }
 </script>
 

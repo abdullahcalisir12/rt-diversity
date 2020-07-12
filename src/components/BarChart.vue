@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Vue, Component } from "vue-property-decorator";
 @Component
-export default class SemiRadialChart extends Vue {
+export default class BarChart extends Vue {
   private chartHeight = 300;
   private gap = 10;
   private total = 12;

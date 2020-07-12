@@ -10,13 +10,14 @@
           stroke-linecap="round"
         />
         <path
+          v-if="value"
           class="circle"
           d="M2,26 a15.9155,15.9155 0 0,1 31.831,0"
           fill="none"
           stroke-width="2"
           stroke="orange"
           stroke-linecap="round"
-          stroke-dasharray="25, 100"
+          :stroke-dasharray="strokeDashArray"
         />
       </g>
     </svg>
@@ -24,9 +25,16 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component } from "vue-property-decorator";
+import { Vue, Component, Prop } from "vue-property-decorator";
 @Component
-export default class SemiRadialChart extends Vue {}
+export default class SemiRadialChart extends Vue {
+  @Prop({ required: true }) readonly total!: number;
+  @Prop({ required: true }) readonly value!: number;
+
+  get strokeDashArray(): string {
+    return `${this.value && this.total ? this.value * 50 / this.total : 0}, 100`
+  }
+}
 </script>
 
 <style>
