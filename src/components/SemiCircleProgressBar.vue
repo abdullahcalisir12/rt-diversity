@@ -20,6 +20,9 @@
           :stroke-dasharray="strokeDashArray"
         />
       </g>
+      <text x="50%" y="60%" text-anchor="middle" dy=".3em"  style="font-size: 6px;">{{ percentage }}%</text>
+      <text x="1.5" y="30" style="font-size: 2px;">0</text>
+      <text x="32" y="30" style="font-size: 2px;">100</text>
     </svg>
   </div>
 </template>
@@ -31,9 +34,18 @@ export default class SemiRadialChart extends Vue {
   @Prop({ required: true }) readonly total!: number;
   @Prop({ required: true }) readonly value!: number;
 
+  get percentage(): number {
+    if (this.value && this.total) {
+      const percentage = (this.value * 100) / this.total;
+      return percentage % 1 !== 0 ? Number(percentage.toFixed(1)) : percentage;
+    }
+
+    return 0;
+  }
+
   get strokeDashArray(): string {
     return `${
-      this.value && this.total ? (this.value * 50) / this.total : 0
+      this.percentage / 2
     }, 100`;
   }
 }
