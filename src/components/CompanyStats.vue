@@ -1,5 +1,10 @@
 <template>
   <div class="company-stats">
+    <div v-if="loading" class="loading">
+      <div class="loader">
+        <img src="https://res.cloudinary.com/hebu10lmu/image/upload/q_auto,c_scale,w_119/v1579546392/www/logo-light_mijgnj.png" alt="">
+      </div>
+    </div>
     <template v-if="companyInfo">
       <Card title="LGBTGIA+" infoBox="The letters LGBTQIA+ refer to lesbian, gay, bisexual, transgender, queer or questioning, intersex, and asexual identities.">
         <SemiCircleProgressBar
@@ -26,7 +31,7 @@
         />
       </Card>
     </template>
-    <template>
+    <template v-if="companyInfo">
       <Card title="Gender">
         <BarChart
           :labels="genders.map(gen => gen.label)"
@@ -117,11 +122,13 @@ export default class CompanyStats extends Vue {
   private ethnicitys: Array<any> = [];
   private locations: Array<any> = [];
   private ageCategories: Array<any> = [];
+  private loading = false;
 
   @Prop({ required: true }) readonly company!: string;
 
   @Watch("company", { immediate: true })
   onSelectedCompanyChanged(value: string) {
+    this.loading = true;
     Api.find("Companies", value).then(
       async (result: Airtable.Record<{}> | any) => {
         this.companyInfo = result.fields;
@@ -156,6 +163,9 @@ export default class CompanyStats extends Vue {
         count: 0
       };
     });
+    setTimeout(() => {
+      this.loading = false;
+    }, 2000)
   }
 
   @Watch("employees", { deep: true })
@@ -196,6 +206,30 @@ export default class CompanyStats extends Vue {
 
   @media only screen and (max-width: 992px) {
     grid-template-columns: 1fr;
+  }
+
+  .loading {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  .loader {
+    -webkit-animation:spin 4s linear infinite;
+    -moz-animation:spin 4s linear infinite;
+    animation:spin 4s linear infinite;
+    font-size: 48px;
+  }
+
+    @-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+    @-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+    @keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
   }
 
   .culture {
