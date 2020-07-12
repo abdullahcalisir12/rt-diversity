@@ -9,20 +9,13 @@ class AirtableAPI {
     }).base(process.env.VUE_APP_AIRTABLE_BASE_ID);
   }
 
-  get(
+  async get(
     tableName: string,
     options: object = {
-      maxRecords: 3,
       view: "Grid view"
     }
   ) {
-    this.base(tableName)
-      .select(options)
-      .eachPage(records => {
-        records.forEach((record: any) => {
-          console.log("Retrieved", record.get("company-name"));
-        });
-      });
+    return await this.base(tableName).select(options);
   }
 }
 

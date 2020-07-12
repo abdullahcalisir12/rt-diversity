@@ -1,29 +1,7 @@
 <template>
   <div class="home">
-    <Card>
-      <SemiCircleProgressBar />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
+    <SelectBox v-model="selectedCompany" class="select-box" :options="companies"></SelectBox>
+    <CompanyStats v-if="selectedCompany" />
   </div>
 </template>
 
@@ -31,37 +9,41 @@
 import { Vue, Component } from "vue-property-decorator";
 import Api from "@/airtable-api";
 
-import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
-import BarChart from "@/components/BarChart.vue";
-import Card from "@/components/Card.vue";
+import SelectBox from "@/components/SelectBox.vue";
+import CompanyStats from "@/components/CompanyStats.vue";
 
 @Component({
   components: {
-    SemiCircleProgressBar,
-    BarChart,
-    Card
+    SelectBox,
+    CompanyStats
   }
 })
 export default class Home extends Vue {
-  private msg = "Hello Remote Team";
-  private apiKey = process.env.VUE_APP_AIRTABLE_API_KEY;
-
+  private companies: Array<any | never> = [];
+  private selectedCompany = '';
   created() {
-    Api.get("Table 1");
+    Api.get("Companies").then((result: any) => {
+      result.eachPage(async (records: Array<any>, fetchNextPage: Function) => {
+        // Set companies array to bind SelectBox
+        this.companies = await records.map((record: any) => {
+          return {
+            value: record.id,
+            name: record.get("company-name")
+          };
+        });
+        fetchNextPage();
+      });
+    });
   }
 }
 </script>
 
 <style lang="scss" scoped>
 .home {
-  display: grid;
-  grid-gap: 4rem;
-  grid-template-columns: 1fr 1fr;
   padding: 4rem;
-}
 
-.break {
-  flex-basis: 100%;
-  height: 0;
+  .select-box {
+    margin-bottom: 4rem;
+  }
 }
 </style>

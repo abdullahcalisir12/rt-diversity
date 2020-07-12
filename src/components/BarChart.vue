@@ -21,7 +21,8 @@ export default class SemiRadialChart extends Vue {
   private gap = 10;
   private total = 12;
 
-  private barHeight: number = (this.chartHeight - this.total * this.gap) / this.total;
+  private barHeight: number =
+    (this.chartHeight - this.total * this.gap) / this.total;
 }
 </script>
 
