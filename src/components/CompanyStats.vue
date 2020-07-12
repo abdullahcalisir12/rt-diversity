@@ -1,39 +1,56 @@
 <template>
   <div class="company-stats">
-    <Card>
-      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['LGBTGIA']" />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['has-a-disability']" />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['non-native-english-speaker']" />
-    </Card>
-    <Card>
-      <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['served-in-military']" />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
-    <Card>
-      <BarChart />
-    </Card>
+    <template v-if="companyInfo">
+      <Card>
+        <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['LGBTGIA']" />
+      </Card>
+      <Card>
+        <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['has-a-disability']" />
+      </Card>
+      <Card>
+        <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['non-native-english-speaker']" />
+      </Card>
+      <Card>
+        <SemiCircleProgressBar :total="companyInfo['total-employees']" :value="companyInfo['served-in-military']" />
+      </Card>
+    </template>
+    <template>
+      <Card>
+        <BarChart
+          :labels="genders.map(gen => gen.label)"
+          :values="genders.map(gen => gen.count)"
+          :colors="genders.map(gen => gen.color)" />
+      </Card>
+      <Card>
+        <BarChart
+          :labels="genders.map(gen => gen.label)"
+          :values="genders.map(gen => gen.count)"
+          :colors="genders.map(gen => gen.color)" />
+      </Card>
+      <Card>
+        <BarChart
+          :labels="genders.map(gen => gen.label)"
+          :values="genders.map(gen => gen.count)"
+          :colors="genders.map(gen => gen.color)" />
+      </Card>
+      <Card>
+        <BarChart
+          :labels="genders.map(gen => gen.label)"
+          :values="genders.map(gen => gen.count)"
+          :colors="genders.map(gen => gen.color)" />
+      </Card>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Watch, Prop } from "vue-property-decorator";
 import Api from "@/airtable-api";
-
+import { genders } from "@/constants.ts"
 import SemiCircleProgressBar from "@/components/SemiCircleProgressBar.vue";
 import BarChart from "@/components/BarChart.vue";
 import Card from "@/components/Card.vue";
+import { Records } from 'airtable';
 
 @Component({
   components: {
@@ -43,14 +60,31 @@ import Card from "@/components/Card.vue";
   }
 })
 export default class CompanyStats extends Vue {
-  public companyInfo: Airtable.Record<{}> | null = null;
+  private companyInfo: Airtable.Record<{}> | null = null;
+  private employees: Array<any | never> = [];
+  private genders = [...genders];
+
   @Prop({ required: true }) readonly company!: string;
 
   @Watch('company', { immediate: true })
   onSelectedCompanyChanged(value: string) {
-    Api.find("Companies", value).then((result: Airtable.Record<{}> | any) => {
+    Api.find("Companies", value).then(async (result: Airtable.Record<{}> | any) => {
       this.companyInfo = result.fields;
+      this.employees = [];
+      result.fields.Employees.forEach(async (emp: string) => {
+        const employee = await Api.find("Employees", emp);
+        this.employees.push(employee.fields);
+      });
     });
+  }
+
+  @Watch('employees', { deep: true })
+  onEmployeesChanged(value: string) {
+    if (this.companyInfo["Employees"].length === value.length) {
+      this.employees.forEach(emp => {
+        this.genders[this.genders.findIndex(gender => gender.label === emp.gender)].count += 1;
+      })
+    }
   }
 }
 </script>
