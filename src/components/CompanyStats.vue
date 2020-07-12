@@ -1,25 +1,25 @@
 <template>
   <div class="company-stats">
     <template v-if="companyInfo">
-      <Card>
+      <Card title="LGBTGIA+" infoBox="The letters LGBTQIA+ refer to lesbian, gay, bisexual, transgender, queer or questioning, intersex, and asexual identities.">
         <SemiCircleProgressBar
           :total="companyInfo['total-employees']"
           :value="companyInfo['LGBTGIA']"
         />
       </Card>
-      <Card>
+      <Card title="Has a Disability" infoBox="Disabilities can include chronic illness or pain, neurological disorders, or any other differing abilities.">
         <SemiCircleProgressBar
           :total="companyInfo['total-employees']"
           :value="companyInfo['has-a-disability']"
         />
       </Card>
-      <Card>
+      <Card title="Non-Native English Speaker">
         <SemiCircleProgressBar
           :total="companyInfo['total-employees']"
           :value="companyInfo['non-native-english-speaker']"
         />
       </Card>
-      <Card>
+      <Card title="Served in the Military">
         <SemiCircleProgressBar
           :total="companyInfo['total-employees']"
           :value="companyInfo['served-in-military']"
@@ -27,28 +27,28 @@
       </Card>
     </template>
     <template>
-      <Card>
+      <Card title="Gender">
         <BarChart
           :labels="genders.map(gen => gen.label)"
           :values="genders.map(gen => gen.count)"
           :colors="genders.map(gen => gen.color)"
         />
       </Card>
-      <Card>
+      <Card title="Ethnicity">
         <BarChart
           :labels="ethnicitys.map(eth => eth.label)"
           :values="ethnicitys.map(eth => eth.count)"
           :colors="ethnicitys.map(eth => eth.color)"
         />
       </Card>
-      <Card>
+      <Card title="Locations">
         <BarChart
           :labels="locations.map(loc => loc.label)"
           :values="locations.map(loc => loc.count)"
           :colors="locations.map(loc => loc.color)"
         />
       </Card>
-      <Card>
+      <Card title="Age">
         <BarChart
           :labels="ageCategories.map(ageC => ageC.label)"
           :values="ageCategories.map(ageC => ageC.count)"

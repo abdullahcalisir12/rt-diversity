@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Watch } from "vue-property-decorator";
+import { Vue, Component } from "vue-property-decorator";
 import Api from "@/airtable-api";
 
 import SelectBox from "@/components/SelectBox.vue";
@@ -31,7 +31,6 @@ export default class Home extends Vue {
     Api.get("Companies").then(async (result: Query<{}>) => {
       this.companiesTable = result;
       result.eachPage(async (records: Records<{}>, fetchNextPage: Function) => {
-        // Set companies array to bind SelectBox
         this.companies = await records.map((record: any) => {
           return {
             value: record.id,
