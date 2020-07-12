@@ -1,6 +1,6 @@
 <template>
   <div class="select-box">
-    <select v-model="value" @change="onValueChange">
+    <select v-model="selectedOption" @change="onValueChange">
       <option value="" disabled>Please Select One</option>
       <option
         v-for="option in options"
@@ -19,9 +19,11 @@ export default class SelectBox extends Vue {
   @Prop({ required: true }) readonly options!: Array<object>;
   @Model("change", { type: String }) readonly value!: string;
 
+  private selectedOption = this.value;
+
   @Emit("change")
   onValueChange() {
-    return this.value;
+    return this.selectedOption;
   }
 }
 </script>
