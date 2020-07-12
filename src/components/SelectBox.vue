@@ -17,9 +17,9 @@ import { Vue, Component, Prop, Model, Emit } from "vue-property-decorator";
 @Component
 export default class SelectBox extends Vue {
   @Prop({ required: true }) readonly options!: Array<object>;
-  @Model('change', { type: String }) readonly value!: string;
+  @Model("change", { type: String }) readonly value!: string;
 
-  @Emit('change')
+  @Emit("change")
   onValueChange() {
     return this.value;
   }
